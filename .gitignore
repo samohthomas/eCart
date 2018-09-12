@@ -50,6 +50,8 @@ typings/
 
 # Output of 'npm pack'
 *.tgz
+*.zip,
+*.rar
 
 # Yarn Integrity file
 .yarn-integrity
@@ -57,3 +59,6 @@ typings/
 # dotenv environment variables file
 .env
 
+
+# build directories
+dist
