@@ -1,5 +1,6 @@
-import { Component, OnInit,ViewChild} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from "rxjs";
 
 import { ProductService } from '../../services/product.service'
 
@@ -8,11 +9,11 @@ import { ProductService } from '../../services/product.service'
   templateUrl: './products-list.component.html',
   styleUrls: ['./products-list.component.css']
 })
-export class ProductsListComponent implements OnInit {  
-  
-  public products : any = [];
-  public productLength : Number = 0;
-  category:String;
+export class ProductsListComponent implements OnInit {
+
+  public products = [];
+  public productLength: Number = 0;
+  category: String;
 
   array = [];
   sum = 5;
@@ -20,10 +21,9 @@ export class ProductsListComponent implements OnInit {
   scrollDistance = 1;
   scrollUpDistance = 2;
   direction = '';
-  modalOpen = false;
 
-  constructor(private productService: ProductService,private route: ActivatedRoute,
-    private router: Router) { }//this.appendItems(0, this.sum);}
+  constructor(private productService: ProductService, private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit() {
 
@@ -35,65 +35,66 @@ export class ProductsListComponent implements OnInit {
 
         console.log('Query param page: ', this.category);
       });
-    this.getProductList();
-    
+    // this.getProductList();
+    this.appendItems(0, this.sum);
+
   }
 
-  getProductList() {    
-    this.productService.getAllProducts().then((res) => {        
-      this.products = res;
+  getProductList(startIndex, endIndex, _method) {
+    this.productService.getAllProducts().then((res) => {
+      if (res['status'])
+        res['data'].map(item => this.products[_method](item));
+
+      console.log(JSON.stringify(this.products));
       this.productLength = this.products.length;
-      
+
     }, (err) => {
       console.log(err);
     });
   }
 
 
-  addItems(startIndex, endIndex, _method) {
-    for (let i = 0; i < this.sum; ++i) {
-      this.array[_method]([i, ' ', 'HIIII'].join(''));
-    }
-  }
-  
+  // addItems(startIndex, endIndex, _method) {
+  //   for (let i = 0; i < this.sum; ++i) {
+  //     this.array[_method]([i, ' ', 'HIIII'].join(''));
+  //   }
+  //   alert(this.array.length);
+  // }
+
   appendItems(startIndex, endIndex) {
-    this.addItems(startIndex, endIndex, 'push');
-  }
-  
-  prependItems(startIndex, endIndex) {
-    this.addItems(startIndex, endIndex, 'unshift');
+    this.getProductList(startIndex, endIndex, 'push');
   }
 
-  onScrollDown (ev) {
+  prependItems(startIndex, endIndex) {
+    this.getProductList(startIndex, endIndex, 'unshift');
+  }
+
+  onScrollDown(ev) {
     console.log('scrolled down!!', ev);
 
     // add another 20 items
     const start = this.sum;
     this.sum += 20;
     this.appendItems(start, this.sum);
-    
+
     this.direction = 'down'
   }
-  
+
   onUp(ev) {
     console.log('scrolled up!', ev);
     const start = this.sum;
     this.sum += 20;
     this.prependItems(start, this.sum);
-  
+
     this.direction = 'up';
-  }  
-
-  toggleModal() {
-    this.modalOpen = !this.modalOpen;
   }
 
-  OnAction(item){
-    this.router.navigate(['/checkout']);    
+  OnAction(item) {
+    this.router.navigate(['/checkout']);
   }
 
-  showProductDetails(item){
-    this.router.navigate(['/product/'],{ queryParams: { p_id: item['pId'] } });    
+  showProductDetails(item) {
+    this.router.navigate(['/product/'], { queryParams: { p_id: item['pId'] } });
   }
 }
 

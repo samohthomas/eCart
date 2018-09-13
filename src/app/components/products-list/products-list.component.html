@@ -1,9 +1,8 @@
-
 <!-- ##### Shop Grid Area Start ##### -->
 <section class="shop_grid_area section-padding-80">
     <div class="container">
         <div class="row">
-            
+
 
             <div class="col-12 col-md-8 col-lg-12">
                 <div class="shop_grid_product_area">
@@ -21,7 +20,7 @@
                                         <select name="select" id="sortByselect">
                                             <option value="value">Highest Rated</option>
                                             <option value="value">Newest</option>
-                                            
+
                                         </select>
                                         <input type="submit" class="d-none" value="">
                                     </form>
@@ -30,9 +29,16 @@
                         </div>
                     </div>
 
-                    
-                        <app-product [products]="products" (addToCart)="OnAction($event)"  (viewProductDetails)="showProductDetails($event)"></app-product>
-                    
+                    <div class="search-results" infinite-scroll [infiniteScrollDistance]="scrollDistance"
+                        [infiniteScrollUpDistance]="scrollUpDistance" [infiniteScrollThrottle]="throttle" (scrolled)="onScrollDown()"
+                        (scrolledUp)="onUp()">
+                        <app-product [products]="products" (addToCart)="OnAction($event)" (viewProductDetails)="showProductDetails($event)"></app-product>
+
+                    </div>
+
+
+
+
                 </div>
                 <!-- Pagination -->
                 <!-- <nav aria-label="navigation">

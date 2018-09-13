@@ -14,11 +14,12 @@ module.exports = {
         productModel.find(function (err, products) {
             if (err) {
                 return res.status(500).json({
+                    status:false,
                     message: 'Error when getting product.',
                     error: err
                 });
             }
-            return res.json(products);
+            return res.json({status:true,data:products});
         });
     },
 
@@ -39,7 +40,7 @@ module.exports = {
                     message: 'No such product'
                 });
             }
-            return res.json(product);
+            return res.json({status:true,data:product});
         });
     },
 

@@ -34,17 +34,16 @@ export class ProductService {
 
   
 
-  // showProduct(id) {
-  //   return new Promise((resolve, reject) => {
-  //       this.http.get('/product/' + id)
-  //         // .map(res => res.json())
-  //         .subscribe(res => {
-  //           resolve(res)
-  //       }, (err) => {
-  //         reject(err);
-  //       });
-  //   });
-  // }
+  showProduct(id) {
+    return new Promise((resolve, reject) => {
+        this.http.get('/api/product/' + id)          
+          .subscribe(res => {
+            resolve(res.json())
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
 
   saveProduct(data) {
     return new Promise((resolve, reject) => {

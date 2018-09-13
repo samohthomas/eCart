@@ -5,6 +5,8 @@ import { HttpModule } from '@angular/http';
 import { PathLocationStrategy, LocationStrategy } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+
 import { AppComponent } from './app.component';
 import { ProductListDirective } from './directives/product-list.directive';
 import { HeaderComponent } from './components/header/header.component';
@@ -35,7 +37,8 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
     FormsModule,
     HttpModule,
     RouterModule,
-    AppRoutingModule
+    AppRoutingModule,
+    InfiniteScrollModule
   ],
   providers: [    
     {provide: LocationStrategy, useClass: PathLocationStrategy}
