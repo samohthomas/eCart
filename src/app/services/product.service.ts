@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
-import * as rxjs  from 'rxjs';
+ 
+import { Observable } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -9,29 +11,40 @@ export class ProductService {
 
   constructor(private http: Http) { }
 
+
+  // getAllProducts(): Observable<any> {
+  //   return this.httpClient.get('/api/product')
+  //     .pipe(
+  //       tap(res => this.log('fetched heroes')),
+  //       catchError(this.handleError('getHeroes', []))
+  //     );
+  // }
+
   getAllProducts() {
     return new Promise((resolve, reject) => {
-      this.http.get('/api/product')
-        // .map(res => res.json())
-        .subscribe(res => {
-          resolve(res);
+      this.http.get('/api/product')            
+        .subscribe(res => {          
+          console.log('RESPONSE  :'+JSON.stringify(res));
+          resolve(res.json());
         }, (err) => {
           reject(err);
         });
     });
   }
 
-  showProduct(id) {
-    return new Promise((resolve, reject) => {
-        this.http.get('/product/' + id)
-          // .map(res => res.json())
-          .subscribe(res => {
-            resolve(res)
-        }, (err) => {
-          reject(err);
-        });
-    });
-  }
+  
+
+  // showProduct(id) {
+  //   return new Promise((resolve, reject) => {
+  //       this.http.get('/product/' + id)
+  //         // .map(res => res.json())
+  //         .subscribe(res => {
+  //           resolve(res)
+  //       }, (err) => {
+  //         reject(err);
+  //       });
+  //   });
+  // }
 
   saveProduct(data) {
     return new Promise((resolve, reject) => {
@@ -67,4 +80,5 @@ export class ProductService {
           });
     });
   }
+
 }

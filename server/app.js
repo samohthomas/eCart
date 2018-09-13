@@ -32,6 +32,8 @@ app.use(bodyParser.urlencoded({'extended':'false'}));
 app.use(express.static(path.join(__dirname, '../dist/mean-app')));
 
 
+
+
 // Set view engine as EJS
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
@@ -39,6 +41,10 @@ app.set('view engine', 'html');
 app.use("/api/product", productRoute);
 app.use("/api/cart", cartRoute);
 app.use("/api/purchase", purchaseRoute);
+
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, '../dist/mean-app/index.html'));
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

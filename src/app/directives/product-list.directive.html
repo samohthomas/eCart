@@ -1,0 +1,43 @@
+<div class="row">
+    <ng-container *ngFor="let product of products">
+
+    <!-- Single Product -->
+    <div  class="col-12 col-sm-6 col-lg-3" >                                
+        <div class="single-product-wrapper">
+            <!-- Product Image -->
+            <div class="product-img">
+                <img src="{{product.image[0]}}" alt="">
+                <!-- Hover Thumb -->
+                <img class="hover-img" src="{{product.image[1]}}" alt="">
+
+                <!-- Product Badge -->
+                <div class="product-badge offer-badge">
+                    <span>-15%</span>
+                </div>
+                <!-- Favourite -->
+                <div class="product-favourite">
+                    <a href="#" class="favme fa fa-heart"></a>
+                </div>
+            </div>
+
+            <!-- Product Description -->
+            <div class="product-description">
+                <span>{{product.tag}}</span>
+                <a (click)="productDetails(product['_id'])">
+                    <h6>{{product.name}}</h6>
+                </a>
+                <p class="product-price"><span class="old-price">AED {{product.price}}</span>AED {{product.price}}</p>
+
+                <!-- Hover Content -->
+                <div class="hover-content">
+                    <!-- Add to Cart -->
+                    <div class="add-to-cart-btn">
+                        <a (click)="addCart(product['_id'])" class="btn essence-btn">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+</div>
