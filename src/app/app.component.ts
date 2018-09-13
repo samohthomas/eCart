@@ -8,7 +8,7 @@ import { Component,Input,OnChanges,Output,EventEmitter } from '@angular/core';
 export class AppComponent implements OnChanges {
   @Input() isHide : boolean = false;
   @Input() items : Array<Object> = [];
-  title = 'mean-app';
+  title = 'Open Cart';
 
   ngOnChanges(changes){
     
